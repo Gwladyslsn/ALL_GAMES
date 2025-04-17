@@ -11,15 +11,16 @@ CREATE TABLE USER(
         email_user       Varchar (150) ,
         pseudo_user      Varchar (50) NOT NULL ,
         mdp_user        Varchar (50) NOT NULL,
-        id_wishlist Int NOT NULL 
+        id_wishlist INT REFERENCES WHISLIST(id_wishlist)
 );
 
 
 CREATE TABLE WISHLIST(
         id_whislist   Int PRIMARY KEY Auto_increment  NOT NULL ,
         date_wishlist Date NOT NULL ,
-        id_user       Int
+        id_user INT REFERENCES USER(id_user)
 );
+
 
 CREATE TABLE GAME(
         id_game          Int PRIMARY KEY Auto_increment  NOT NULL ,
@@ -27,8 +28,9 @@ CREATE TABLE GAME(
         description_game Varchar (50) NOT NULL ,
         date_game        Date NOT NULL ,
         image_game       Varchar (50) NOT NULL ,
-        id_editor        Int NOT NULL
+        id_editor INT REFERENCES EDITOR(id_editor)
 );
+
 
 CREATE TABLE REVIEW(
         id_review   Int PRIMARY KEY Auto_increment  NOT NULL ,
@@ -36,9 +38,8 @@ CREATE TABLE REVIEW(
         review      Text NOT NULL ,
         date_review Date NOT NULL ,
         id_user     Int NOT NULL ,
-        id_game     Int NOT NULL
+        id_game INT REFERENCES GAME(id_game)
 );
-
 
 CREATE TABLE GENRE(
         id_genre  Int PRIMARY KEY Auto_increment  NOT NULL ,
@@ -50,7 +51,6 @@ CREATE TABLE EDITOR(
         nom_editor Varchar (50) NOT NULL
 );
 
-INSERT INTO 'EDITOR'
 
 INSERT INTO `editor` (`id_editor`, `nom_editor`) VALUES
 (1, 'Nintendo'),
@@ -105,8 +105,55 @@ INSERT INTO `GAME` (`id_game`, `nom_game`, `description_game`, `date_game`, `ima
 (17, 'Spider-Man 2', 'Incarnez le célèbre super-héros dans une nouvelle aventure pleine d\'action. Balancez-vous à travers la ville, affrontez des ennemis redoutables et découvrez une histoire captivante. Avec des combats fluides, des graphismes impressionnants et des mécaniques de jeu innovantes, Spider-Man 2 promet une expérience inoubliable.', '2024-10-04', '', 15);
 
 
+CREATE TABLE `GAME_GENRE` (
+`id_game` int(11) NOT NULL,
+`id_genre` int(11) NOT NULL,
+PRIMARY KEY (`id_game`,`id_genre`),
+KEY `id_genre` (`id_genre`)
+);
+
+
+
+INSERT INTO `game_genre` (`id_game`, `id_genre`) VALUES
+(1, 1),
+(10, 1),
+(14, 1),
+(15, 1),
+(16, 1),
+(17, 1),
+(2, 2),
+(3, 2),
+(7, 2),
+(11, 2),
+(14, 2),
+(4, 3),
+(9, 3),
+(12, 3),
+(5, 4),
+(13, 4),
+(6, 5),
+(7, 6),
+(10, 6),
+(11, 6),
+(12, 6),
+(14, 6),
+(15, 6),
+(6, 7),
+(8, 7),
+(9, 7),
+(8, 9),
+(9, 9),
+(13, 9),
+(8, 10),
+(9, 10),
+(12, 10),
+(13, 10),
+(10, 11),
+(11, 11),
+(14, 11),
+(15, 11),
+(16, 11),
+(17, 11);
+
 SELECT *
 FROM GAME;
-SELECT *
-FROM GENRE;
-DROP TABLE USER;
