@@ -1,45 +1,58 @@
--- Active: 1744105221537@@127.0.0.1@3306
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Hôte : 127.0.0.1:3306
--- Généré le : jeu. 20 mars 2025 à 18:57
--- Version du serveur : 5.7.36
--- Version de PHP : 8.0.13
+-- Active: 1744105221537@@127.0.0.1@3306@allgames
+-- Active: 1744105221537@@127.0.0.1@3306@phpmyadmin
+CREATE DATABASE allGames;
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+USE allGames;
+
+CREATE TABLE USER(
+        id_user     Int PRIMARY KEY Auto_increment  NOT NULL ,
+        nom_user         Varchar (150) ,
+        prenom_user      Varchar (150) ,
+        email_user       Varchar (150) ,
+        pseudo_user      Varchar (50) NOT NULL ,
+        mdp_user        Varchar (50) NOT NULL,
+        id_wishlist Int NOT NULL 
+);
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+CREATE TABLE WISHLIST(
+        id_whislist   Int PRIMARY KEY Auto_increment  NOT NULL ,
+        date_wishlist Date NOT NULL ,
+        id_user       Int
+);
 
---
--- Base de données : `studi_allgames`
---
+CREATE TABLE GAME(
+        id_game          Int PRIMARY KEY Auto_increment  NOT NULL ,
+        nom_game         Varchar (150) ,
+        description_game Varchar (50) NOT NULL ,
+        date_game        Date NOT NULL ,
+        image_game       Varchar (50) NOT NULL ,
+        id_editor        Int NOT NULL
+);
 
--- --------------------------------------------------------
+CREATE TABLE REVIEW(
+        id_review   Int PRIMARY KEY Auto_increment  NOT NULL ,
+        note_review Varchar (50) NOT NULL ,
+        review      Text NOT NULL ,
+        date_review Date NOT NULL ,
+        id_user     Int NOT NULL ,
+        id_game     Int NOT NULL
+);
 
---
--- Structure de la table `editor`
---
 
-DROP TABLE IF EXISTS `editor`;
-CREATE TABLE IF NOT EXISTS `editor` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+CREATE TABLE GENRE(
+        id_genre  Int PRIMARY KEY Auto_increment  NOT NULL ,
+        nom_genre Varchar (50) NOT NULL
+);
 
---
--- Déchargement des données de la table `editor`
---
+CREATE TABLE EDITOR(
+        id_editor  Int PRIMARY KEY Auto_increment  NOT NULL ,
+        nom_editor Varchar (50) NOT NULL
+);
 
-INSERT INTO `editor` (`id`, `name`) VALUES
+INSERT INTO 'EDITOR'
+
+INSERT INTO `editor` (`id_editor`, `nom_editor`) VALUES
 (1, 'Nintendo'),
 (2, 'Bethesda Softworks'),
 (3, 'Square Enix'),
@@ -56,29 +69,23 @@ INSERT INTO `editor` (`id`, `name`) VALUES
 (14, 'Riot Games'),
 (15, 'Blizzard Entertainment');
 
--- --------------------------------------------------------
+INSERT INTO `GENRE` (`id_genre`, `nom_genre`) VALUES
+(1, 'Action-Aventure'),
+(2, 'Action-RPG'),
+(3, 'Survival Horror'),
+(4, 'Combat'),
+(5, 'Sport'),
+(6, 'Aventure'),
+(7, 'Tir'),
+(8, 'Simulation'),
+(9, 'Stratégie'),
+(10, 'Multijoueur'),
+(11, 'Monde Ouvert'),
+(12, 'Compétitif'),
+(13, 'Narratif');
 
---
--- Structure de la table `game`
---
 
-DROP TABLE IF EXISTS `game`;
-CREATE TABLE IF NOT EXISTS `game` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `release_date` date NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `editor_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `editor_id` (`editor_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `game`
---
-
-INSERT INTO `game` (`id`, `name`, `description`, `release_date`, `image`, `editor_id`) VALUES
+INSERT INTO `GAME` (`id_game`, `nom_game`, `description_game`, `date_game`, `image_game`, `id_editor`) VALUES
 (1, 'The Legend of Zelda: Tears of the Kingdom', 'Plongez dans une aventure épique à travers le royaume d\'Hyrule, où vous explorerez des donjons, résoudrez des énigmes et affronterez des ennemis redoutables. Avec de nouvelles capacités et un vaste monde ouvert à découvrir, ce jeu offre une expérience immersive et captivante.', '2023-05-12', '', 1),
 (2, 'Starfield', 'Partez à la découverte des étoiles dans ce jeu de rôle et d\'action futuriste. Explorez des planètes inconnues, interagissez avec des factions spatiales et façonnez votre propre destinée parmi les étoiles. Avec une liberté totale et des possibilités infinies, Starfield promet une aventure galactique inoubliable.', '2023-09-06', '', 2),
 (3, 'Final Fantasy XVI', 'Embarquez dans une aventure à haut risque dans le monde de Valisthea, où la magie et la technologie se rencontrent. Avec des combats intenses, une histoire riche et des personnages mémorables, Final Fantasy XVI vous plonge dans un univers fantastique où chaque décision compte.', '2023-06-22', '', 3),
@@ -97,180 +104,9 @@ INSERT INTO `game` (`id`, `name`, `description`, `release_date`, `image`, `edito
 (16, 'Like a Dragon: Infinite Wealth', 'Explorez un monde ouvert rempli de possibilités et de défis. Incarnez un héros et affrontez des ennemis redoutables dans des combats intenses. Avec une narration riche, des personnages mémorables et des graphismes époustouflants, Like a Dragon: Infinite Wealth promet une aventure captivante.', '2024-01-19', '', 15),
 (17, 'Spider-Man 2', 'Incarnez le célèbre super-héros dans une nouvelle aventure pleine d\'action. Balancez-vous à travers la ville, affrontez des ennemis redoutables et découvrez une histoire captivante. Avec des combats fluides, des graphismes impressionnants et des mécaniques de jeu innovantes, Spider-Man 2 promet une expérience inoubliable.', '2024-10-04', '', 15);
 
--- --------------------------------------------------------
 
---
--- Structure de la table `game_genre`
---
-
-DROP TABLE IF EXISTS `game_genre`;
-CREATE TABLE IF NOT EXISTS `game_genre` (
-  `game_id` int(11) NOT NULL,
-  `genre_id` int(11) NOT NULL,
-  PRIMARY KEY (`game_id`,`genre_id`),
-  KEY `genre_id` (`genre_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `game_genre`
---
-
-INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
-(1, 1),
-(10, 1),
-(14, 1),
-(15, 1),
-(16, 1),
-(17, 1),
-(2, 2),
-(3, 2),
-(7, 2),
-(11, 2),
-(14, 2),
-(4, 3),
-(9, 3),
-(12, 3),
-(5, 4),
-(13, 4),
-(6, 5),
-(7, 6),
-(10, 6),
-(11, 6),
-(12, 6),
-(14, 6),
-(15, 6),
-(6, 7),
-(8, 7),
-(9, 7),
-(8, 9),
-(9, 9),
-(13, 9),
-(8, 10),
-(9, 10),
-(12, 10),
-(13, 10),
-(10, 11),
-(11, 11),
-(14, 11),
-(15, 11),
-(16, 11),
-(17, 11);
-
--- --------------------------------------------------------
-
---
--- Structure de la table `genre`
---
-
-DROP TABLE IF EXISTS `genre`;
-CREATE TABLE IF NOT EXISTS `genre` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
-
---
--- Déchargement des données de la table `genre`
---
-
-INSERT INTO `genre` (`id`, `name`) VALUES
-(1, 'Action-Aventure'),
-(2, 'Action-RPG'),
-(3, 'Survival Horror'),
-(4, 'Combat'),
-(5, 'Sport'),
-(6, 'Aventure'),
-(7, 'Tir'),
-(8, 'Simulation'),
-(9, 'Stratégie'),
-(10, 'Multijoueur'),
-(11, 'Monde Ouvert'),
-(12, 'Compétitif'),
-(13, 'Narratif');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `review`
---
-
-DROP TABLE IF EXISTS `review`;
-CREATE TABLE IF NOT EXISTS `review` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `review` tinyint(1) NOT NULL,
-  `comment` text NOT NULL,
-  `created_at` datetime NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `game_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `game_id` (`game_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `username` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `wishlist`
---
-
-DROP TABLE IF EXISTS `wishlist`;
-CREATE TABLE IF NOT EXISTS `wishlist` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `created_at` datetime NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `game_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `game_id` (`game_id`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Contraintes pour les tables déchargées
---
-
---
--- Contraintes pour la table `game`
---
-ALTER TABLE `game`
-  ADD CONSTRAINT `game_ibfk_1` FOREIGN KEY (`editor_id`) REFERENCES `editor` (`id`);
-
---
--- Contraintes pour la table `game_genre`
---
-ALTER TABLE `game_genre`
-  ADD CONSTRAINT `game_genre_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
-  ADD CONSTRAINT `game_genre_ibfk_2` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`);
-
---
--- Contraintes pour la table `review`
---
-ALTER TABLE `review`
-  ADD CONSTRAINT `review_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
-  ADD CONSTRAINT `review_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-
---
--- Contraintes pour la table `wishlist`
---
-ALTER TABLE `wishlist`
-  ADD CONSTRAINT `wishlist_ibfk_1` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`),
-  ADD CONSTRAINT `wishlist_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+SELECT *
+FROM GAME;
+SELECT *
+FROM GENRE;
+DROP TABLE USER;
