@@ -22,7 +22,7 @@ CREATE TABLE WISHLIST(
 );
 
 
-CREATE TABLE GAME(
+CREATE TABLE GAMES(
         id_game          Int PRIMARY KEY Auto_increment  NOT NULL ,
         nom_game         Varchar (150) ,
         description_game Varchar (50) NOT NULL ,
@@ -85,7 +85,7 @@ INSERT INTO `GENRE` (`id_genre`, `nom_genre`) VALUES
 (13, 'Narratif');
 
 
-INSERT INTO `GAME` (`id_game`, `nom_game`, `description_game`, `date_game`, `image_game`, `id_editor`) VALUES
+INSERT INTO `GAMES` (`id_game`, `nom_game`, `description_game`, `date_game`, `image_game`, `id_editor`) VALUES
 (1, 'The Legend of Zelda: Tears of the Kingdom', 'Plongez dans une aventure épique à travers le royaume d\'Hyrule, où vous explorerez des donjons, résoudrez des énigmes et affronterez des ennemis redoutables. Avec de nouvelles capacités et un vaste monde ouvert à découvrir, ce jeu offre une expérience immersive et captivante.', '2023-05-12', '', 1),
 (2, 'Starfield', 'Partez à la découverte des étoiles dans ce jeu de rôle et d\'action futuriste. Explorez des planètes inconnues, interagissez avec des factions spatiales et façonnez votre propre destinée parmi les étoiles. Avec une liberté totale et des possibilités infinies, Starfield promet une aventure galactique inoubliable.', '2023-09-06', '', 2),
 (3, 'Final Fantasy XVI', 'Embarquez dans une aventure à haut risque dans le monde de Valisthea, où la magie et la technologie se rencontrent. Avec des combats intenses, une histoire riche et des personnages mémorables, Final Fantasy XVI vous plonge dans un univers fantastique où chaque décision compte.', '2023-06-22', '', 3),
@@ -104,6 +104,7 @@ INSERT INTO `GAME` (`id_game`, `nom_game`, `description_game`, `date_game`, `ima
 (16, 'Like a Dragon: Infinite Wealth', 'Explorez un monde ouvert rempli de possibilités et de défis. Incarnez un héros et affrontez des ennemis redoutables dans des combats intenses. Avec une narration riche, des personnages mémorables et des graphismes époustouflants, Like a Dragon: Infinite Wealth promet une aventure captivante.', '2024-01-19', '', 15),
 (17, 'Spider-Man 2', 'Incarnez le célèbre super-héros dans une nouvelle aventure pleine d\'action. Balancez-vous à travers la ville, affrontez des ennemis redoutables et découvrez une histoire captivante. Avec des combats fluides, des graphismes impressionnants et des mécaniques de jeu innovantes, Spider-Man 2 promet une expérience inoubliable.', '2024-10-04', '', 15);
 
+DROP TABLE GAME;
 
 CREATE TABLE `GAME_GENRE` (
 `id_game` int(11) NOT NULL,
@@ -156,4 +157,4 @@ INSERT INTO `game_genre` (`id_game`, `id_genre`) VALUES
 (17, 11);
 
 SELECT *
-FROM GAME;
+FROM GAMES;
